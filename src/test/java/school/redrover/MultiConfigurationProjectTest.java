@@ -21,8 +21,8 @@ public class MultiConfigurationProjectTest extends BaseTest {
 
     @Test
     public void testCreateMultiConfiguration() {
-        MainPage mainPage = new MainPage(getDriver());
-        final String projectName = mainPage.clickNewItem()
+        final String projectName = new MainPage(getDriver())
+                .clickNewItem()
                 .enterItemName(MULTI_CONFIGURATION_NAME)
                 .selectMultiConfigurationProjectAndOk()
                 .clickSaveButton()
@@ -50,7 +50,6 @@ public class MultiConfigurationProjectTest extends BaseTest {
 
     @Test
     public void testCreateMultiConfigurationProject() {
-
         WebElement projectName = new MainPage(getDriver())
                 .clickNewItem()
                 .enterItemName(MULTI_CONFIGURATION_NAME)
@@ -65,7 +64,6 @@ public class MultiConfigurationProjectTest extends BaseTest {
 
     @Test
     public void testCreateMultiConfigurationProjectOnProjectPage() {
-
         String projectName = new MainPage(getDriver())
                 .clickNewItem()
                 .enterItemName(MULTI_CONFIGURATION_NAME)
@@ -78,8 +76,6 @@ public class MultiConfigurationProjectTest extends BaseTest {
 
     @Test(dependsOnMethods = "testCreateMultiConfigurationProject")
     public void testRenameFromDropDownMenu() {
-        // TestUtils.createMultiConfigurationProject(this, MULTI_CONFIGURATION_NAME, true);
-
         String NewNameProject = new MainPage(getDriver())
                 .dropDownMenuClickRename(MULTI_CONFIGURATION_NAME, new MultiConfigurationProjectPage(getDriver()))
                 .enterNewName(MULTI_CONFIGURATION_NEW_NAME)
@@ -100,10 +96,8 @@ public class MultiConfigurationProjectTest extends BaseTest {
 
     @Test(dataProvider = "unsafeCharacter")
     public void testVerifyAnErrorIfCreatingMultiConfigurationProjectWithUnsafeCharacterInName(char unsafeSymbol) {
-        MainPage mainPage = new MainPage(getDriver());
-        mainPage.clickNewItem();
-
-        String invalidMessage = new NewJobPage(getDriver())
+        String invalidMessage = new MainPage(getDriver())
+                .clickNewItem()
                 .enterItemName(unsafeSymbol + "MyProject")
                 .getItemInvalidMessage();
 
@@ -183,7 +177,6 @@ public class MultiConfigurationProjectTest extends BaseTest {
     @Ignore
     @Test(dependsOnMethods = "testCreateMultiConfiguration")
     public void testRenameFromDashboard() {
-
         String renamedProject = new MainPage(getDriver())
                 .dropDownMenuClickRename(MULTI_CONFIGURATION_NAME, new MultiConfigurationProjectPage(getDriver()))
                 .enterNewName(MULTI_CONFIGURATION_NEW_NAME)
@@ -243,11 +236,13 @@ public class MultiConfigurationProjectTest extends BaseTest {
     @Test(dependsOnMethods = "testCreateMultiConfigurationProject")
     public void testMultiConfigurationProjectAddDescription1() {
         final String text = "text";
+
         String addDescriptionText = new MainPage(getDriver())
                 .clickMultiConfigurationProjectName(MULTI_CONFIGURATION_NAME)
                 .changeDescriptionWithoutSaving(text)
                 .clickSaveButton()
                 .getDescription();
+
         Assert.assertEquals(addDescriptionText, text);
     }
 
@@ -317,7 +312,6 @@ public class MultiConfigurationProjectTest extends BaseTest {
 
     @Test(dependsOnMethods = "testCreateMultiConfigurationProjectOnProjectPage")
     public void testRenameMultiConfigurationProject() {
-
         String newName = new MainPage(getDriver())
                 .clickJobMultiConfigurationProject(MULTI_CONFIGURATION_NAME)
                 .clickRename()
@@ -368,6 +362,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
     @Test
     public void testDisableProjectFromConfigurationPage() {
         final String disableResult = "This project is currently disabled";
+
         TestUtils.createMultiConfigurationProject(this, MULTI_CONFIGURATION_NAME, false);
         String disableMessage = new MultiConfigurationProjectPage(getDriver())
                 .clickDisable()
@@ -420,7 +415,6 @@ public class MultiConfigurationProjectTest extends BaseTest {
 
     @Test(dataProvider = "unsafeCharacters")
     public void testVerifyProjectNameRenameWithUnsafeSymbols(char unsafeSymbol, String htmlUnsafeSymbol) {
-
         TestUtils.createMultiConfigurationProject(this, MULTI_CONFIGURATION_NAME, true);
 
         String errorNotification = new MainPage(getDriver())

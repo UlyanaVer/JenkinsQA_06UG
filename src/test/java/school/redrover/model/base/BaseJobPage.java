@@ -58,7 +58,7 @@ public abstract class BaseJobPage<Self extends BaseJobPage<?>> extends BaseMainH
     }
 
     public Self clickSaveButton() {
-        getDriver().findElement(By.linkText("Save")).click();
+        getDriver().findElement(By.xpath("//button[text() = 'Save']")).click();
         return (Self)this;
     }
 }
