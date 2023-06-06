@@ -10,7 +10,7 @@ import school.redrover.model.*;
 import school.redrover.runner.BaseTest;
 import school.redrover.runner.TestUtils;
 
-import java.io.IOException;
+
 import java.util.*;
 
 public class UsersTest extends BaseTest {
@@ -273,7 +273,7 @@ public class UsersTest extends BaseTest {
     }
 
     @Test
-    public void testUserCanLoginToJenkinsWithCreatedAccount() throws IOException {
+    public void testUserCanLoginToJenkinsWithCreatedAccount() {
         String nameProject = "Engineer";
         new CreateUserPage(getDriver())
                 .createUser(USER_NAME, PASSWORD, USER_FULL_NAME, EMAIL);
@@ -282,8 +282,24 @@ public class UsersTest extends BaseTest {
                 .clickLogoutButton()
                 .enterUsername(USER_NAME)
                 .enterPassword(PASSWORD)
-                .enterSignIn();
+                .enterSignIn(new MainPage(getDriver()));
         TestUtils.createFreestyleProject(this, nameProject, true);
-        Assert.assertEquals(new MainPage(getDriver()).getProjectName().getText(), nameProject);
+        String actualResult = new MainPage(getDriver()).getProjectName().getText();
+        Assert.assertEquals(actualResult, nameProject);
+    }
+
+    @Test
+    public void inputtingAnIncorrectUsername() {
+        String expectedTextAlertIncorrectUsernameOrPassword = "Invalid username or password";
+        new CreateUserPage(getDriver())
+                .createUser(USER_NAME, PASSWORD, USER_FULL_NAME, EMAIL);
+        String actualTextAlertIncorrectUsernameOrPassword = new MainPage(getDriver())
+                .getHeader()
+                .clickLogoutButton()
+                .enterUsername("incorrect user name")
+                .enterPassword(PASSWORD)
+                .enterSignIn(new LoginPage(getDriver()))
+                .getTextAlertIncorrectUsernameOrPassword();
+        Assert.assertEquals(actualTextAlertIncorrectUsernameOrPassword, expectedTextAlertIncorrectUsernameOrPassword);
     }
 }
