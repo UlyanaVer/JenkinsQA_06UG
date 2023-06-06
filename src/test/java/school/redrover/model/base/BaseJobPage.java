@@ -10,7 +10,7 @@ import school.redrover.model.RenamePage;
 
 import java.time.Duration;
 
-public abstract class BaseJobPage<Self extends BaseJobPage<?>> extends BaseMainHeaderPage<BaseJobPage<?>> {
+public abstract class BaseJobPage<Self extends BaseJobPage<?>> extends BaseMainHeaderPage<Self> {
 
     public BaseJobPage(WebDriver driver) {
         super(driver);
@@ -20,15 +20,15 @@ public abstract class BaseJobPage<Self extends BaseJobPage<?>> extends BaseMainH
         getWait10().until(ExpectedConditions.elementToBeClickable(getDriver().findElement(By.linkText("Configure")))).click();
     }
 
-    public abstract BaseConfigPage<?, Self> clickConfigure();
+    public abstract BaseConfigPage clickConfigure();
 
     public String getName() {
         return getWait2().until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#main-panel>h1"))).getText();
     }
 
-    public RenamePage<BaseJobPage<Self>> clickRename() {
+    public RenamePage<Self> clickRename() {
         getDriver().findElement(By.linkText("Rename")).click();
-        return new RenamePage<>(this);
+        return new RenamePage<>((Self)this);
     }
 
     public MainPage clickDelete() {

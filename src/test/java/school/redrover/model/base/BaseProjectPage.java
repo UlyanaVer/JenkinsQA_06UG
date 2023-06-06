@@ -7,7 +7,7 @@ import school.redrover.model.ConsoleOutputPage;
 
 import static org.openqa.selenium.By.cssSelector;
 
-public abstract class BaseProjectPage<Self extends BaseProjectPage<?>> extends BaseJobPage<BaseProjectPage<?>> {
+public abstract class BaseProjectPage<Self extends BaseProjectPage<?>> extends BaseJobPage<Self> {
 
     public BaseProjectPage(WebDriver driver) {
         super(driver);

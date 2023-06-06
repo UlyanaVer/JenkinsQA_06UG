@@ -118,7 +118,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
     public void testDisabledMultiConfigurationProject() {
         TestUtils.createMultiConfigurationProject(this, MULTI_CONFIGURATION_NAME, false);
         MultiConfigurationProjectPage disabled = new MultiConfigurationProjectPage(getDriver())
-                .getDisableClick();
+                .clickDisable();
 
 
         Assert.assertEquals(getDriver().findElement(By.cssSelector("form#enable-project"))
@@ -130,7 +130,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
         TestUtils.createMultiConfigurationProject(this, "MyProject", false);
 
         String enable = new MultiConfigurationProjectPage(getDriver())
-                .getDisableClick()
+                .clickDisable()
                 .getEnableSwitch()
                 .getText();
 
@@ -265,7 +265,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
         mainPage.getProjectName()
                 .click();
         WebElement addDescriptionText = new MultiConfigurationProjectPage(getDriver())
-                .getAddDescription(text)
+                .changeDescription(text)
                 .getSaveButton()
                 .getInputAdd();
         Assert.assertEquals(addDescriptionText.getText(), text);
@@ -308,7 +308,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
     public void testCreateProjectWithDescription() {
         TestUtils.createMultiConfigurationProject(this, MULTI_CONFIGURATION_NAME, false);
         String nameDescription = new MultiConfigurationProjectPage(getDriver())
-                .getAddDescription("Description")
+                .changeDescription("Description")
                 .getSaveButton()
                 .getInputAdd().getText();
 
@@ -411,7 +411,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
         final String textDescription = "Text Description Test";
         MultiConfigurationProjectPage multiConfPage =
                 new MultiConfigurationProjectPage(getDriver())
-                        .getAddDescription(textDescription)
+                        .changeDescription(textDescription)
                         .getSaveButton();
 
         String getDescription = multiConfPage
@@ -424,7 +424,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
     public void testAddDescriptionToMultiConfigurationProject() {
         final String descriptionText = "Web-application project";
         String description = new MultiConfigurationProjectPage(getDriver())
-                .getAddDescription(descriptionText)
+                .changeDescription(descriptionText)
                 .getSaveButton()
                 .getInputAdd()
                 .getText();
@@ -469,7 +469,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
                 .enterItemName(multiConfigurationProjectName)
                 .selectMultiConfigurationProjectAndOk()
                 .clickSaveButton()
-                .getAddDescription(description)
+                .changeDescription(description)
                 .getSaveButton()
                 .getInputAdd().getText();
 
@@ -488,7 +488,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
                 .enterItemName(multiConfProjectName)
                 .selectMultiConfigurationProjectAndOk()
                 .clickSaveButton()
-                .clickConfigureSideMenu()
+                .clickConfigure()
                 .clickOldBuildCheckBox()
                 .enterDaysToKeepBuilds(displayedDaysToKeepBuilds)
                 .enterMaxNumOfBuildsToKeep(displayedMaxNumOfBuildsToKeep)

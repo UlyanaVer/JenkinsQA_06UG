@@ -4,30 +4,26 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import school.redrover.model.base.BaseMainHeaderPage;
+import school.redrover.model.base.BaseProjectPage;
 
 import java.time.Duration;
 
-public class MultiConfigurationProjectPage extends BaseMainHeaderPage<MultiConfigurationProjectPage> {
+public class MultiConfigurationProjectPage extends BaseProjectPage<MultiConfigurationProjectPage> {
 
     public MultiConfigurationProjectPage(WebDriver driver) {
         super(driver);
+    }
+
+    @Override
+    public MultiConfigurationProjectConfigPage clickConfigure() {
+        setupClickConfigure();
+        return new MultiConfigurationProjectConfigPage(this);
     }
 
     public String getMultiProjectName() {
 
         return getWait5().until(ExpectedConditions.elementToBeClickable(getDriver()
                 .findElement(By.xpath("//h1")))).getText();
-    }
-
-    public MultiConfigurationProjectPage getAddDescription(String text) {
-
-        getDriver().findElement(By.cssSelector("#description-link")).click();
-
-        WebElement textInput = getWait2().until(ExpectedConditions.elementToBeClickable(getDriver().findElement(By.cssSelector("textarea[name='description']"))));
-        textInput.clear();
-        textInput.sendKeys(text);
-        return this;
     }
 
     public MultiConfigurationProjectPage getSaveButton() {
@@ -84,12 +80,14 @@ public class MultiConfigurationProjectPage extends BaseMainHeaderPage<MultiConfi
 
         return new MultiConfigurationProjectConfigPage(new MultiConfigurationProjectPage(getDriver()));
     }
-
+/*
     public MovePage<MultiConfigurationProjectPage> clickMoveOnSideMenu() {
         getWait5().until(ExpectedConditions.elementToBeClickable(
                 getDriver().findElement(By.cssSelector("[href$='/move']")))).click();
         return new MovePage<>(this);
     }
+
+ */
 
     public MultiConfigurationProjectConfigPage getConfigPage() {
         getWait10().until(ExpectedConditions.elementToBeClickable(getDriver().findElement(By.linkText("Configure")))).click();
