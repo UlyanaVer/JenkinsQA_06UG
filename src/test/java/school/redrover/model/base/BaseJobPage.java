@@ -6,7 +6,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import school.redrover.model.MainPage;
 import school.redrover.model.MovePage;
-import school.redrover.model.MultiConfigurationProjectPage;
 import school.redrover.model.RenamePage;
 
 import java.time.Duration;
@@ -40,7 +39,7 @@ public abstract class BaseJobPage<Self extends BaseJobPage<?>> extends BaseMainH
     }
 
     public String getDescription() {
-        return getDriver().findElement(By.xpath("//div[@id='description']")).getText();
+        return getDriver().findElement(By.xpath("//div[@id='description']/div[1]")).getText();
     }
 
     public MovePage<Self> clickMoveOnSideMenu() {

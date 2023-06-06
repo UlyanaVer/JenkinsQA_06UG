@@ -14,7 +14,8 @@ public abstract class BaseProjectPage<Self extends BaseProjectPage<?>> extends B
     }
 
     public String getEnableButtonText(){
-        return getDriver().findElement(By.cssSelector("form#enable-project")).getText();
+        return getDriver().findElement(By.xpath("//form[@id='enable-project']/button")).getText();
+
     }
 
     public String getDisableButtonText() {
@@ -32,6 +33,10 @@ public abstract class BaseProjectPage<Self extends BaseProjectPage<?>> extends B
                 findElement(By.xpath("//form[@id='enable-project']/button")))).click();
 
         return (Self)this;
+    }
+
+    public String getDisabledMessageText(){
+        return getDriver().findElement(By.cssSelector("form#enable-project")).getText();
     }
 
     public Self clickBuildNow() {

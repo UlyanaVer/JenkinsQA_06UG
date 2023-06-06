@@ -338,7 +338,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
 
         String checkStatusIsDisabled = new MultiConfigurationProjectPage(getDriver())
                 .clickDisable()
-                .getDisableButtonText();
+                .getDisabledMessageText();
         Assert.assertTrue(checkStatusIsDisabled.contains("This project is currently disabled"));
 
         boolean checkStatusIsEnabled = new MultiConfigurationProjectPage(getDriver())
@@ -366,7 +366,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
         TestUtils.createMultiConfigurationProject(this, MULTI_CONFIGURATION_NAME, false);
         String disableMessage = new MultiConfigurationProjectPage(getDriver())
                 .clickDisable()
-                .getDisableButtonText();
+                .getDisabledMessageText();
 
         Assert.assertTrue(disableMessage.contains(disableResult), "Not found such message");
     }
