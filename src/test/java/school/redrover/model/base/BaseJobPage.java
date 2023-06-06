@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import school.redrover.model.MainPage;
 import school.redrover.model.MovePage;
+import school.redrover.model.MultiConfigurationProjectPage;
 import school.redrover.model.RenamePage;
 
 import java.time.Duration;
@@ -48,11 +49,16 @@ public abstract class BaseJobPage<Self extends BaseJobPage<?>> extends BaseMainH
         return new MovePage<>((Self)this);
     }
 
-    public Self changeDescription(String newDescription) {
+    public Self changeDescriptionWithoutSaving(String newDescription) {
         getDriver().findElement(By.cssSelector("#description-link")).click();
         WebElement textInput = getWait2().until(ExpectedConditions.elementToBeClickable(getDriver().findElement(By.cssSelector("textarea[name='description']"))));
         textInput.clear();
         textInput.sendKeys(newDescription);
+        return (Self)this;
+    }
+
+    public Self clickSaveButton() {
+        getDriver().findElement(By.linkText("Save")).click();
         return (Self)this;
     }
 }

@@ -49,4 +49,9 @@ public abstract class BaseProjectPage<Self extends BaseProjectPage<?>> extends B
         return getWait10().until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
                 By.xpath("//td[@class = 'build-row-cell']"))).size();
     }
+
+    public boolean isDisableButtonDisplayed() {
+        return getWait5().until(ExpectedConditions.visibilityOfElementLocated((By.xpath("//form[@id='disable-project']/button"))))
+                .isDisplayed();
+    }
 }
