@@ -107,6 +107,5 @@ public class MultiConfigurationProjectPage extends BaseMainHeaderPage<MultiConfi
         getDriver().findElement(By.linkText("Rename")).click();
         return new RenamePage<>(this);
     }
-
 }
 
