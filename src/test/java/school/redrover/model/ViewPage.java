@@ -83,7 +83,7 @@ public class ViewPage extends BaseMainHeaderPage<ViewPage> {
 
     public ViewPage clickEditView(String nameProject) {
         getWait2().until(ExpectedConditions.visibilityOfElementLocated(
-                By.xpath(String.format("//*[@href='/view/%s/configure']", nameProject)))).click();
+                By.xpath(String.format("//*[@href='/view/%s/configure']", nameProject.replaceAll(" ","%20"))))).click();
         return this;
     }
     public ViewPage enterDescription(String text) {
@@ -110,6 +110,17 @@ public class ViewPage extends BaseMainHeaderPage<ViewPage> {
         return this;
     }
 
+    public ViewPage clickHelpFeatureDescription() {
+        getDriver().findElement(
+                By.xpath("//div/a[@helpurl='/help/view-config/description.html']")).click();
+        return this;
+    }
+
+    public String getTextHelpFeatureDescription() {
+        return getWait5().until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//div[@class='help-area tr']/div/div"))).getText();
+    }
+
     public ViewDeletePage clickDeleteView() {
         getWait5().until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@href='delete']"))).click();
         return new ViewDeletePage(getDriver());
@@ -118,5 +129,6 @@ public class ViewPage extends BaseMainHeaderPage<ViewPage> {
     public MainPage clickDashboard() {
         getWait2().until(ExpectedConditions.elementToBeClickable(By.linkText("Dashboard"))).click();
         return new MainPage(getDriver());
+
     }
 }
