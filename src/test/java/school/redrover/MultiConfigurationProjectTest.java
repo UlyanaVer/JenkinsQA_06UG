@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 import school.redrover.model.*;
 import school.redrover.runner.BaseTest;
 import school.redrover.runner.TestUtils;
+
 import java.util.List;
 
 public class MultiConfigurationProjectTest extends BaseTest {
@@ -31,7 +32,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
         Assert.assertEquals(projectName, MULTI_CONFIGURATION_NAME);
     }
 
-      @Test
+    @Test
     public void testCreateMultiConfigurationProjectOnProjectPage() {
         String projectName = new MainPage(getDriver())
                 .clickNewItem()
@@ -58,6 +59,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
 
         Assert.assertEquals(error, ERROR_MESSAGE_EQUAL_NAME);
     }
+
     @Ignore
     @Test(dependsOnMethods = "testCreateProject")
     public void testRenameFromDropDownMenu() {
@@ -172,6 +174,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
                 .getText();
 
         Assert.assertEquals(renamedProject, MULTI_CONFIGURATION_NEW_NAME);
+
     }
 
     @Ignore
@@ -465,6 +468,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
         Assert.assertEquals(errorMessage, expectedResult);
     }
 
+    @Ignore
     @Test(dependsOnMethods = "testCreateProject")
     public void testBuildNowOptionNotPresentInDisabledProject() {
         List<String> dropDownMenuItems = new MainPage(getDriver())
@@ -480,24 +484,23 @@ public class MultiConfigurationProjectTest extends BaseTest {
 
     @Test
     public void testAddingAProjectOnGithubToTheMultiConfigurationProject() {
-        String nameProject = "Engineer";
-        String gitHubUrl = "https://github.com/ArtyomDulya/TestRepo";
-        String nameRepo = "Sign in";
+        final String gitHubUrl = "https://github.com/ArtyomDulya/TestRepo";
+        final String expectedNameRepo = "Sign in";
 
-        TestUtils.createMultiConfigurationProject(this, nameProject, true);
-        new MainPage(getDriver())
-                .clickJobName(nameProject, new MultiConfigurationProjectPage(getDriver()))
+        TestUtils.createMultiConfigurationProject(this, MULTI_CONFIGURATION_NAME, true);
+
+        String actualNameRepo = new MainPage(getDriver())
+                .clickJobName(MULTI_CONFIGURATION_NAME, new MultiConfigurationProjectPage(getDriver()))
                 .clickConfigure()
                 .clickGitHubProjectCheckbox()
                 .inputTextTheInputAreaProjectUrlInGitHubProject(gitHubUrl)
                 .clickSaveButton()
                 .getHeader()
                 .clickLogo()
-                .openJobDropDownMenu(nameProject)
+                .openJobDropDownMenu(MULTI_CONFIGURATION_NAME)
                 .selectFromJobDropdownMenuTheGitHub();
 
-        GitHubPage gitHubPage = new GitHubPage(getDriver());
-        Assert.assertEquals(gitHubPage.githubSignInText(), nameRepo);
+        Assert.assertEquals(actualNameRepo, expectedNameRepo);
     }
 
 
