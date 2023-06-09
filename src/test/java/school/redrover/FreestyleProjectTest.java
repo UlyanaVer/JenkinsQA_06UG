@@ -234,10 +234,12 @@ public class FreestyleProjectTest extends BaseTest {
     }
 
     @Test
-    public void testVisibleProjectNameAndDescriptionFromViewPage() {
-        createFreestyleProject(this, FREESTYLE_NAME, false);
-
-        FreestyleProjectPage projectPage = new FreestyleProjectPage(getDriver())
+    public void testVisibleProjectNameAndDescriptionOnViewPage() {
+        FreestyleProjectPage projectPage = new MainPage(getDriver())
+                .clickNewItem()
+                .enterItemName(FREESTYLE_NAME)
+                .selectFreestyleProjectAndOk()
+                .clickSaveButton()
                 .clickAddDescription()
                 .addDescription(DESCRIPTION_TEXT)
                 .clickSaveDescription()
