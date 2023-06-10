@@ -26,15 +26,6 @@ public class NewViewTest extends BaseTest {
                 .clickLogo();
     }
 
-    private List<String> getListFromWebElements(List<WebElement> elements) {
-        List<String> list = new ArrayList<>();
-        for (WebElement element : elements) {
-            list.add(element.getText());
-        }
-
-        return list;
-    }
-
     private void createNewFreestyleProjectAndNewView(String name) {
         new MainPage(getDriver())
                 .clickNewItem()
@@ -100,6 +91,25 @@ public class NewViewTest extends BaseTest {
                 .getActiveView();
 
         assertEquals(actualViewName, expectedEditedMyViewText);
+    }
+
+    @Test(dependsOnMethods = "testRenameView")
+    public void testDeleteMyView() {
+        final int numberOfAllViews;
+        final int numberOfAllViewsAfterDeletion;
+
+        numberOfAllViews = new MainPage(getDriver())
+                .clickMyViewsSideMenuLink()
+                .getListOfAllViews().size();
+
+        numberOfAllViewsAfterDeletion = new MyViewsPage(getDriver())
+                .clickInactiveLastCreatedMyView()
+                .clickDeleteViewButton()
+                .clickYesButton()
+                .getListOfAllViews().size();
+
+        assertEquals(numberOfAllViews - numberOfAllViewsAfterDeletion, 1 );
+
     }
 
     @Test
