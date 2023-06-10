@@ -668,4 +668,25 @@ public class PipelineTest extends BaseTest {
 
         Assert.assertEquals(actualNameRepo, expectedNameRepo);
     }
+
+    @Test (dependsOnMethods = "testCreatePipelineWithDescription")
+    public void testDiscardOldBuildsIsCheckedWithValidParams() {
+        final String days = "7";
+        final String builds = "5";
+
+        new MainPage(getDriver())
+                .clickJobName(PIPELINE_NAME, new PipelinePage(getDriver()))
+                .clickConfigure()
+                .clickDiscardOldBuildsCheckbox()
+                .enterDaysToKeepBuilds(days)
+                .enterMaxOfBuildsToKeep(builds)
+                .clickSaveButton()
+                .clickConfigure();
+
+        PipelineConfigPage pipelineConfigPage = new PipelineConfigPage(new PipelinePage(getDriver()));
+
+        Assert.assertTrue(pipelineConfigPage.checkboxDiscardOldBuildsIsSelected());
+        Assert.assertEquals(pipelineConfigPage.getDaysToKeepBuilds(), days);
+        Assert.assertEquals(pipelineConfigPage.getMaxNumbersOfBuildsToKeep(), builds);
+    }
 }

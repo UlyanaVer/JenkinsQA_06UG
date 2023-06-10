@@ -15,7 +15,6 @@ public class MainPage extends BaseMainHeaderPage<MainPage>  {
         super(driver);
     }
 
-
     public MainPage openJobDropDownMenu(String jobName) {
         getWait10().until(ExpectedConditions.visibilityOfElementLocated(
                         By.xpath(String.format("//a[contains(@href,'job/%s/')]/button", jobName.replaceAll(" ", "%20")))))
