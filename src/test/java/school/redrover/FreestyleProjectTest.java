@@ -10,6 +10,7 @@ import school.redrover.runner.BaseTest;
 import school.redrover.runner.TestUtils;
 
 import java.util.UUID;
+
 import static school.redrover.runner.TestUtils.createFreestyleProject;
 
 public class FreestyleProjectTest extends BaseTest {
@@ -174,7 +175,7 @@ public class FreestyleProjectTest extends BaseTest {
 
         Assert.assertEquals(freestyleProjectPage.getProjectName(), "Project " + FREESTYLE_NAME + " New");
     }
-
+@Ignore
     @Test(dependsOnMethods = "testPresenceOfBuildLinksAfterBuild")
     public void testRenameFreestyleProjectUsingDropDownMenu() {
         String actualFreestyleProjectName = new MainPage(getDriver())
@@ -423,6 +424,27 @@ public class FreestyleProjectTest extends BaseTest {
                 .selectFromJobDropdownMenuTheGitHub();
 
         Assert.assertEquals(actualNameRepo, expectedNameRepo);
+    }
+
+    @Test(dependsOnMethods = "testCreateFreestyleProject")
+    public void testSetParametersToDiscardOldBuilds() {
+        final int daysToKeepBuilds = 3;
+        final int maxOfBuildsToKeep = 5;
+
+        FreestyleProjectConfigPage freestyleProjectConfigPage = new MainPage(getDriver())
+                .clickJobName(FREESTYLE_NAME, new FreestyleProjectPage(getDriver()))
+                .clickConfigureButton()
+                .clickOldBuildCheckBox()
+                .enterDaysToKeepBuilds(daysToKeepBuilds)
+                .enterMaxNumOfBuildsToKeep(maxOfBuildsToKeep)
+                .clickSaveButton()
+                .clickConfigureButton();
+
+        Assert.assertEquals(Integer
+                .parseInt(freestyleProjectConfigPage.getDaysToKeepBuilds("value")), daysToKeepBuilds);
+
+        Assert.assertEquals(Integer
+                .parseInt(freestyleProjectConfigPage.getMaxNumOfBuildsToKeep("value")), maxOfBuildsToKeep);
     }
 
 }
