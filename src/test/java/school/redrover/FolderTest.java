@@ -193,7 +193,7 @@ public class FolderTest extends BaseTest {
 
         boolean welcomeIsDisplayed = new MainPage(getDriver())
                 .dropDownMenuClickDeleteFolders(NEW_NAME)
-                .clickYes()
+                .clickYesButton()
                 .WelcomeIsDisplayed();
 
         Assert.assertTrue(welcomeIsDisplayed,"error was not show Welcome to Jenkins!");

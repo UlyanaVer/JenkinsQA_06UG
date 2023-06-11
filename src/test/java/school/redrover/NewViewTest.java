@@ -111,7 +111,6 @@ public class NewViewTest extends BaseTest {
                 .getListOfAllViews().size();
 
         assertEquals(numberOfAllViews - numberOfAllViewsAfterDeletion, 1 );
-
     }
 
     @Test
@@ -135,7 +134,7 @@ public class NewViewTest extends BaseTest {
                 .clickLogo()
                 .clickOnView(viewName)
                 .clickDeleteView()
-                .clickYes()
+                .clickYesButton()
                 .verifyViewIsPresent(viewName);
 
         Assert.assertFalse(isDeletedViewPresent);
