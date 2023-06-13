@@ -356,12 +356,13 @@ public class HeaderTest extends BaseTest {
 
     @Test
     public void testConfigureTabFromDropdownMenu() {
-        WebElement page = new MainPage(getDriver())
+        boolean isPageOpened = new MainPage(getDriver())
                 .getHeader()
                 .clickAdminDropdownMenu()
-                .openConfigureTabFromAdminDropdownMenu();
+                .openConfigureTabFromAdminDropdownMenu()
+                .isConfigUserPageOpened();
 
-        Assert.assertTrue(page.isDisplayed(), "Page should be displayed");
+        Assert.assertTrue(isPageOpened, "Page should be displayed");
     }
 
     @Test
