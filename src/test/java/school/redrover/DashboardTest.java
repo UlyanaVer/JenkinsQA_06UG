@@ -1,10 +1,7 @@
 package school.redrover;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import school.redrover.model.FolderConfigPage;
 import school.redrover.model.FreestyleProjectConfigPage;
 import school.redrover.model.FreestyleProjectPage;
 import school.redrover.model.MainPage;
@@ -98,13 +95,12 @@ public class DashboardTest extends BaseTest {
     }
 
     @Test
-    public void testMoveFromBuildHistoryPageToPluginsPageByDropDownMenu() {
+    public void testMoveToPluginsPageThroughDashboardDropDownMenu() {
 
         PluginsPage pluginsPage = new PluginsPage(getDriver());
 
         String actualResult =
                 new MainPage(getDriver())
-                        .clickBuildsHistoryButton()
                         .getBreadcrumb()
                         .openDashboardDropdownMenu()
                         .selectAnOptionFromDashboardManageJenkinsSubmenuList("Manage Plugins", pluginsPage)

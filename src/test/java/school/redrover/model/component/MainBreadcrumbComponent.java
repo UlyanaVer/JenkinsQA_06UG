@@ -99,8 +99,8 @@ public class MainBreadcrumbComponent<Page extends BasePage<?, ?>> extends BaseCo
         return this;
     }
 
-    public <PageFromMenu extends BaseMainHeaderPage<?>> PageFromMenu selectAnOptionFromDashboardManageJenkinsSubmenuList(
-            String menuItem, PageFromMenu pageFromMenu) {
+    public <PageFromSubMenu extends BaseMainHeaderPage<?>> PageFromSubMenu selectAnOptionFromDashboardManageJenkinsSubmenuList(
+            String menuItem, PageFromSubMenu pageFromSubMenu) {
 
         openDashboardDropdownMenu();
 
@@ -111,7 +111,7 @@ public class MainBreadcrumbComponent<Page extends BasePage<?, ?>> extends BaseCo
                 .click()
                 .perform();
 
-        return pageFromMenu;
+        return pageFromSubMenu;
     }
 }
 
