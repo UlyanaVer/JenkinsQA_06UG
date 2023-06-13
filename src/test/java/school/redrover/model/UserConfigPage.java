@@ -27,7 +27,7 @@ public class UserConfigPage extends BaseConfigPage<UserConfigPage,StatusUserPage
     }
 
     public boolean isConfigUserPageOpened(){
-        return getWait5().until(ExpectedConditions.titleContains("User ‘User’ Configuration [Jenkins]"));
+        return getWait5().until(ExpectedConditions.titleContains("Configuration [Jenkins]"));
     }
 
     public UserConfigPage selectInsensitiveSearch(){
