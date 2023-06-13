@@ -222,4 +222,21 @@ public class ManageJenkinsTest extends BaseTest {
 
         Assert.assertEquals(newNodeDescription, description);
     }
+
+    @Test
+    public void testCreateNewAgentNodeByCopyingNonExistingNode() {
+        final String nonExistingNodeName = ".0";
+
+        String errorMessage = new MainPage(getDriver())
+                .navigateToManageJenkinsPage()
+                .clickManageNodes()
+                .clickNewNodeButton()
+                .inputNodeNameField("NewNode")
+                .clickCopyExistingNode()
+                .inputExistingNode(nonExistingNodeName)
+                .clickCreateButtonAndGoError()
+                .getErrorMessage();
+
+        Assert.assertEquals(errorMessage, "No such agent: " + nonExistingNodeName);
+    }
 }
