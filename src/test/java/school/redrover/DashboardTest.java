@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import school.redrover.model.FreestyleProjectConfigPage;
 import school.redrover.model.FreestyleProjectPage;
 import school.redrover.model.MainPage;
+import school.redrover.model.PluginsPage;
 import school.redrover.runner.BaseTest;
 import school.redrover.runner.TestUtils;
 
@@ -91,4 +92,20 @@ public class DashboardTest extends BaseTest {
 
         Assert.assertEquals(actualTitle, "People");
     }
+
+    @Test
+    public void testMoveFromBuildHistoryPageToPluginsPageByDropDownMenu() {
+
+        PluginsPage pluginsPage = new PluginsPage(getDriver());
+
+        String actualResult = new MainPage(getDriver())
+                .clickBuildsHistoryButton()
+                .getBreadcrumb()
+                .clickDashboardDropdownMenu()
+                .selectAnOptionFromDashboardManageJenkinsSubmenuList("Manage Plugins", pluginsPage)
+                .getPageTitle();
+
+        Assert.assertEquals(actualResult, "Plugins");
+    }
 }
+

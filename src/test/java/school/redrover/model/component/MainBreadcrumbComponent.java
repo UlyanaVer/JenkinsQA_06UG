@@ -1,13 +1,16 @@
 package school.redrover.model.component;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import school.redrover.model.*;
+import school.redrover.model.MainPage;
 import school.redrover.model.base.BaseComponent;
 import school.redrover.model.base.BaseMainHeaderPage;
 import school.redrover.model.base.BasePage;
+
+import java.time.Duration;
 
 public class MainBreadcrumbComponent<Page extends BasePage<?, ?>> extends BaseComponent<Page> {
 
@@ -83,6 +86,30 @@ public class MainBreadcrumbComponent<Page extends BasePage<?, ?>> extends BaseCo
 
     }
 
+    private void hoverOver(By locator) {
+        new Actions(getDriver())
+                .moveToElement(getDriver().findElement(locator))
+                .pause(Duration.ofMillis(300))
+                .perform();
+    }
+    public MainBreadcrumbComponent<Page> clickDashboardDropdownMenu() {
+        hoverOver(By.xpath("//a[text()='Dashboard']"));
+        getDriver().findElement(By.xpath("//a[text()='Dashboard']/button")).sendKeys(Keys.RETURN);
+        return this;
+    }
+
+    public <PageFromMenu extends BaseMainHeaderPage<?>> PageFromMenu selectAnOptionFromDashboardManageJenkinsSubmenuList(
+            String menuItem, PageFromMenu pageFromMenu) {
+        clickDashboardDropdownMenu();
+
+        new Actions(getDriver())
+                .moveToElement(getDriver().findElement(By.xpath("//a[contains(span, 'Manage Jenkins')]")))
+                .moveToElement(getDriver().findElement(By.xpath("//span[contains(text(), '" + menuItem + "')]")))
+                .click()
+                .perform();
+
+        return pageFromMenu;
+    }
 }
 
 
