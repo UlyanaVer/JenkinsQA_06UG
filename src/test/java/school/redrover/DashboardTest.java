@@ -97,13 +97,12 @@ public class DashboardTest extends BaseTest {
     @Test
     public void testMoveToPluginsPageThroughDashboardDropDownMenu() {
 
-        PluginsPage pluginsPage = new PluginsPage(getDriver());
-
         String actualResult =
                 new MainPage(getDriver())
                         .getBreadcrumb()
                         .openDashboardDropdownMenu()
-                        .selectAnOptionFromDashboardManageJenkinsSubmenuList("Manage Plugins", pluginsPage)
+                        .selectAnOptionFromDashboardManageJenkinsSubmenuList(
+                                "Manage Plugins", new PluginsPage(getDriver()))
                         .getPageTitle();
 
         Assert.assertEquals(actualResult, "Plugins");
