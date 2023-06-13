@@ -60,7 +60,7 @@ public class DashboardTest extends BaseTest {
                 .clickDashboard()
                 .getProjectNameMainPage(nameProject);
 
-        Assert.assertEquals(nameProjectOnMainPage,nameProject);
+        Assert.assertEquals(nameProjectOnMainPage, nameProject);
     }
 
     @Test
@@ -102,12 +102,13 @@ public class DashboardTest extends BaseTest {
 
         PluginsPage pluginsPage = new PluginsPage(getDriver());
 
-        String actualResult = new MainPage(getDriver())
-                .clickBuildsHistoryButton()
-                .getBreadcrumb()
-                .clickDashboardDropdownMenu()
-                .selectAnOptionFromDashboardManageJenkinsSubmenuList("Manage Plugins", pluginsPage)
-                .getPageTitle();
+        String actualResult =
+                new MainPage(getDriver())
+                        .clickBuildsHistoryButton()
+                        .getBreadcrumb()
+                        .openDashboardDropdownMenu()
+                        .selectAnOptionFromDashboardManageJenkinsSubmenuList("Manage Plugins", pluginsPage)
+                        .getPageTitle();
 
         Assert.assertEquals(actualResult, "Plugins");
     }

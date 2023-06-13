@@ -83,7 +83,6 @@ public class MainBreadcrumbComponent<Page extends BasePage<?, ?>> extends BaseCo
         option.click();
 
         return pageToReturn;
-
     }
 
     private void hoverOver(By locator) {
@@ -92,18 +91,22 @@ public class MainBreadcrumbComponent<Page extends BasePage<?, ?>> extends BaseCo
                 .pause(Duration.ofMillis(300))
                 .perform();
     }
-    public MainBreadcrumbComponent<Page> clickDashboardDropdownMenu() {
+
+    public MainBreadcrumbComponent<Page> openDashboardDropdownMenu() {
         hoverOver(By.xpath("//a[text()='Dashboard']"));
         getDriver().findElement(By.xpath("//a[text()='Dashboard']/button")).sendKeys(Keys.RETURN);
+
         return this;
     }
 
     public <PageFromMenu extends BaseMainHeaderPage<?>> PageFromMenu selectAnOptionFromDashboardManageJenkinsSubmenuList(
             String menuItem, PageFromMenu pageFromMenu) {
-        clickDashboardDropdownMenu();
+
+        openDashboardDropdownMenu();
 
         new Actions(getDriver())
                 .moveToElement(getDriver().findElement(By.xpath("//a[contains(span, 'Manage Jenkins')]")))
+                .pause(500)
                 .moveToElement(getDriver().findElement(By.xpath("//span[contains(text(), '" + menuItem + "')]")))
                 .click()
                 .perform();
