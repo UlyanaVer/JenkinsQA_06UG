@@ -6,9 +6,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import school.redrover.model.MainPage;
-import school.redrover.model.MultibranchPipelineConfigPage;
-import school.redrover.model.MultibranchPipelinePage;
+import school.redrover.model.*;
+import school.redrover.model.NewJobPage;
 import school.redrover.runner.BaseTest;
 import school.redrover.runner.TestUtils;
 
@@ -18,15 +17,26 @@ import java.util.List;
 
 public class NewItemTest extends BaseTest {
 
-    @Test
-    public void testCreateNewItemWithNullName() {
 
+    @DataProvider(name = "jobType")
+    public Object[][] JobTypes() {
+        return new Object[][]{
+                {TestUtils.JobType.FreestyleProject},
+                {TestUtils.JobType.Pipeline},
+                {TestUtils.JobType.MultiConfigurationProject},
+                {TestUtils.JobType.Folder},
+                {TestUtils.JobType.MultibranchPipeline},
+                {TestUtils.JobType.OrganizationFolder}};
+    }
+
+    @Test(dataProvider = "jobType")
+    public void testCreateNewItemWithEmptyName(TestUtils.JobType jobType) {
         String errorMessage = new MainPage(getDriver())
                 .clickNewItem()
-                .selectJobType(TestUtils.JobType.MultiConfigurationProject)
+                .selectJobType(jobType)
                 .getItemNameRequiredErrorText();
 
-        Assert.assertTrue(errorMessage.contains("» This field cannot be empty, please enter a valid name"));
+        Assert.assertEquals(errorMessage, "» This field cannot be empty, please enter a valid name");
     }
 
     @Test
@@ -58,28 +68,6 @@ public class NewItemTest extends BaseTest {
                 .okButtonIsEnabled();
 
         Assert.assertFalse(buttonIsEnabled);
-    }
-
-    @Test
-    public void testErrorWhenCreateNewItemWithSpecialCharacterName() {
-        String expectedErrorMessage = "» ‘@’ is an unsafe character";
-
-        String errorMessage = new MainPage(getDriver())
-                .clickNewItem()
-                .enterItemName("@")
-                .getItemInvalidMessage();
-
-        Assert.assertEquals(errorMessage, expectedErrorMessage);
-    }
-
-    @Test
-    public void testErrorRequiredCreateFreestyleProjectWithEmptyName() {
-        String actualErrorMessage = new MainPage(getDriver())
-                .clickNewItem()
-                .selectJobType(TestUtils.JobType.FreestyleProject)
-                .getItemNameRequiredMessage();
-
-        Assert.assertEquals(actualErrorMessage, "» This field cannot be empty, please enter a valid name");
     }
 
     public void createProject(String nameOfProject, String typeOfProject){
@@ -131,18 +119,15 @@ public class NewItemTest extends BaseTest {
         getDriver().findElement(By.xpath("//a[contains(text(), 'Dashboard')]")).click();
     }
 
-    @Test
-    public void testCreatePipelineProjectWithInvalidName(){
-        String[] invalidChars = new String[] {"!", "@", "#", "$", "%", "^", "&", "*", ":", ";", "/", "|", "?", "<", ">"};
-        String typeOfProject = "Pipeline";
-        for (String invalidChar : invalidChars) {
-            createProject(invalidChar, typeOfProject);
-            String validationMessage = getDriver().findElement(By.id("itemname-invalid")).getText();
-            Assert.assertEquals(validationMessage, "» ‘" + invalidChar + "’ is an unsafe character");
-            Assert.assertFalse(getDriver().findElement(By.id("ok-button")).isEnabled());
-            getDriver().findElement(By.xpath("//a[contains(text(), 'Dashboard')]")).click();
+    @Test(dataProvider = "wrong-character")
+    public void testCreateNewJobProjectWithInvalidName(String wrongCharacter){
+        NewJobPage newJobPage = new MainPage(getDriver())
+                .clickNewItem()
+                .enterItemName(wrongCharacter);
+
+        Assert.assertEquals(newJobPage.getItemInvalidMessage(), "» ‘" + wrongCharacter + "’ is an unsafe character");
+        Assert.assertFalse(newJobPage.isOkButtonEnabled());
         }
-    }
 
     @Test
     public void testCreatePipelineProjectSameNamed(){
