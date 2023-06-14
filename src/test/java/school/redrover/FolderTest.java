@@ -2,6 +2,7 @@ package school.redrover;
 
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import school.redrover.model.*;
 import school.redrover.model.base.BaseConfigPage;
@@ -60,7 +61,7 @@ public class FolderTest extends BaseTest {
     public void testCreateFromDashboard() {
 
         MainPage mainPage = new MainPage(getDriver())
-                .getHeader()
+                .getBreadcrumb()
                 .clickNewItemDashboardDropdownMenu()
                 .enterItemName(NAME3)
                 .selectJobType(TestUtils.JobType.Folder)

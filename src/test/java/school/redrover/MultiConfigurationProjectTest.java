@@ -295,7 +295,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
         String statusIcon = new MainPage(getDriver())
                 .clickJobMultiConfigurationProject(MULTI_CONFIGURATION_NAME)
                 .clickDisable()
-                .getHeader()
+                .getBreadcrumb()
                 .clickDashboardButton()
                 .getJobBuildStatusIcon(MULTI_CONFIGURATION_NAME);
 
