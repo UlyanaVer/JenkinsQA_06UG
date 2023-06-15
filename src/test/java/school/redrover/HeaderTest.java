@@ -80,19 +80,17 @@ public class HeaderTest extends BaseTest {
     }
 
     @Test
-    public void testSecurityButton() throws InterruptedException {
-        Actions hover = new Actions(getDriver());
+    public void testSecurityButton() {
 
-        WebElement securityButton = getDriver()
-                .findElement(By.xpath("//*[@id=\"visible-sec-am-button\"]"));
-        WebElement securityButtonIcon = getDriver().findElement(By.cssSelector("#visible-sec-am-button > svg"));
+        boolean securityButton = new MainPage(getDriver())
+                .getSecurityButtonOnHeader();
 
-        Assert.assertTrue(securityButtonIcon.isDisplayed());
+        Assert.assertTrue(securityButton);
 
-        hover.moveToElement(securityButton).perform();
-        Thread.sleep(500);
-        String hoverSecurityButtonBackground = securityButton.getCssValue("background-color");
-        assertEquals(hoverSecurityButtonBackground, "rgba(64, 64, 64, 1)");
+        String background = new MainPage(getDriver())
+                .getBackgroundSecurityButton();
+
+        Assert.assertEquals(background, "rgba(64, 64, 64, 1)");
     }
 
     @Test
@@ -230,11 +228,11 @@ public class HeaderTest extends BaseTest {
     @Test
     public void testButtonNotificationsWorks() {
 
-        WebElement notificationsButton = getDriver().findElement(By.xpath("//a[@id='visible-am-button']"));
-        notificationsButton.click();
+        String getTitle = new MainPage(getDriver())
+                .clickNotificationsButton()
+                .getTextFromHeaderManageJenkins();
 
-        WebElement manageJenkinsString = getWait2().until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#visible-am-list > p > a")));
-        assertEquals(manageJenkinsString.getText(),"Manage Jenkins");
+        Assert.assertEquals(getTitle, "Manage Jenkins");
     }
 
     @Test
