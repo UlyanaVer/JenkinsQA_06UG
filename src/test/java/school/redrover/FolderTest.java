@@ -99,7 +99,8 @@ public class FolderTest extends BaseTest {
         Assert.assertEquals(actualErrorMessage, expectedErrorMessage);
     }
 
-    @Test(dependsOnMethods = "testErrorWhenCreateWithExistingName")
+//    @Test(dependsOnMethods = "testErrorWhenCreateWithExistingName")
+    @Test(dependsOnMethods = "testCreateFromCreateAJob")
     public void testCreateNewViewInFolder() {
         final String viewName = "Test View";
 
@@ -184,6 +185,7 @@ public class FolderTest extends BaseTest {
 
         Assert.assertTrue(folderIsDisplayed,"error was not show name folder");
     }
+
 
     @Test(dependsOnMethods = "testCancelDeleting")
     public void testCreateJobsInFolder() {
