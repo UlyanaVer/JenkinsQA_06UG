@@ -314,4 +314,55 @@ public class MainPage extends BaseMainHeaderPage<MainPage>  {
         }
         return status;
     }
+
+    public MainPage clickNotificationsButton(){
+        getDriver().findElement(By.xpath("//a[@id='visible-am-button']")).click();
+
+        return this;
+    }
+
+    public String getTextFromHeaderManageJenkins(){
+
+       return getWait2().until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#visible-am-list > p > a"))).getText();
+    }
+
+    public boolean getSecurityButtonOnHeader(){
+
+        return getDriver().findElement(By.cssSelector("#visible-sec-am-button > svg")).isDisplayed();
+    }
+
+    public String getBackgroundSecurityButton(){
+        WebElement securityButton = getDriver()
+                .findElement(By.xpath("//*[@id=\"visible-sec-am-button\"]"));
+
+        Actions hover = new Actions(getDriver());
+        hover.moveToElement(securityButton).perform();
+
+        return securityButton.getCssValue("background-color");
+    }
+
+    public boolean iconExitButton(){
+
+        return getDriver()
+                .findElement(By.cssSelector("#page-header > div.login.page-header__hyperlinks > a:nth-child(4) > svg"))
+                .isDisplayed();
+    }
+
+    public String getUnderLineExitButton(){
+        WebElement exitButton = getDriver().findElement(By.xpath("//*[@id=\"page-header\"]/div[3]/a[2]"));
+
+        Actions hover = new Actions(getDriver());
+        hover.moveToElement(exitButton).perform();
+
+        return exitButton.getCssValue("text-decoration-line");
+    }
+
+    public String getBackgroundExitButton(){
+        WebElement exitButton = getDriver().findElement(By.xpath("//*[@id=\"page-header\"]/div[3]/a[2]"));
+
+        Actions hover = new Actions(getDriver());
+        hover.moveToElement(exitButton).perform();
+
+        return exitButton.getCssValue("background-color");
+    }
 }
