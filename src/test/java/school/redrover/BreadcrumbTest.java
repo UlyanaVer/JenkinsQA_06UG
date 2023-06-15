@@ -90,8 +90,8 @@ public class BreadcrumbTest extends BaseTest {
         final List<String> expectedMenuList = Arrays.asList("New Item", "People", "Build History", "Manage Jenkins", "My Views");
 
         List<String> actualMenuList = new MainPage(getDriver())
-                .getHeader()
-                .clickDashboardDropdownMenu()
+                .getBreadcrumb()
+                .getDashboardDropdownMenu()
                 .getMenuList();
 
         Assert.assertEquals(actualMenuList, expectedMenuList);
