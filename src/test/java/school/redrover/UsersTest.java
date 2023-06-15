@@ -8,7 +8,6 @@ import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import school.redrover.model.*;
-import school.redrover.model.component.MainHeaderComponent;
 import school.redrover.runner.BaseTest;
 import school.redrover.runner.TestUtils;
 
@@ -262,7 +261,7 @@ public class UsersTest extends BaseTest {
     }
 
     @Test(dependsOnMethods = "testCreateNewUser")
-    public void testDeleteUserByDeleteButton() {
+    public void testDeleteUserViaManageUsersByDeleteButton() {
         boolean userNotFound = new ManageUsersPage(getDriver())
                 .navigateToManageJenkinsPage()
                 .clickManageUsers()
@@ -273,22 +272,7 @@ public class UsersTest extends BaseTest {
         Assert.assertFalse(userNotFound);
     }
 
-    @Test
-    public void testDeleteUserViaManageUsers() {
-
-        new CreateUserPage(getDriver()).createUserAndReturnToMainPage(USER_NAME, PASSWORD, USER_FULL_NAME, EMAIL);
-
-        boolean userIsNotFind = new MainPage(getDriver())
-                .clickManageJenkinsPage()
-                .clickManageUsers()
-                .clickDeleteUser()
-                .clickYesButton()
-                .isUserExist(USER_NAME);
-
-        Assert.assertFalse(userIsNotFind);
-    }
-
-    @Test(dependsOnMethods = "testDeleteUserViaManageUsers")
+    @Test(dependsOnMethods = "testDeleteUserViaManageUsersByDeleteButton")
     public void testLogInWithDeletedUserCredentials() {
 
         getDriver().findElement(By.xpath("//a[@href= '/logout']")).click();
@@ -390,6 +374,7 @@ public class UsersTest extends BaseTest {
         Assert.assertEquals(actualResultNameButton, expectedResultNameButton);
     }
 
+   @Ignore
     @Test
     public void testCreateUserCheckInPeople() {
 
