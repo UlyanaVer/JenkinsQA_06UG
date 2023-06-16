@@ -118,8 +118,7 @@ public class FolderTest extends BaseTest {
         Assert.assertEquals(actualErrorMessage, expectedErrorMessage);
     }
 
-//    @Test(dependsOnMethods = "testErrorWhenCreateWithExistingName")
-    @Test(dependsOnMethods = "testCreateFromCreateAJob")
+    @Test(dependsOnMethods = "testErrorWhenCreateWithExistingName")
     public void testCreateNewViewInFolder() {
         final String viewName = "Test View";
 
