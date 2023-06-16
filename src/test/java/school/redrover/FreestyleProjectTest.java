@@ -268,7 +268,7 @@ public class FreestyleProjectTest extends BaseTest {
         MainPage mainPage = new MainPage(getDriver())
                 .clickJobName(FREESTYLE_NAME, new FreestyleProjectPage(getDriver()))
                 .selectBuildNow()
-                .getHeader()
+                .getBreadcrumb()
                 .clickDashboardButton();
 
         Assert.assertEquals(mainPage.getTitleValueOfBuildStatusIconElement(), "Success");
