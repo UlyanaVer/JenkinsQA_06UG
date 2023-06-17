@@ -373,4 +373,9 @@ public class MainPage extends BaseMainHeaderPage<MainPage>  {
 
         return this;
     }
+    public AdminPage clickOnAdminButton() {
+        getWait2().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@href='/user/admin']"))).click();
+
+        return new AdminPage(getDriver());
+    }
 }
