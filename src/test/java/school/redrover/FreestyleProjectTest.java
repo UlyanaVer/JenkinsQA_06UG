@@ -32,7 +32,7 @@ public class FreestyleProjectTest extends BaseTest {
                 .clickSaveButton()
                 .getHeader()
                 .clickLogo()
-                .getProjectName();
+                .getJobName();
 
         Assert.assertEquals(projectName, FREESTYLE_NAME);
     }
@@ -314,10 +314,10 @@ public class FreestyleProjectTest extends BaseTest {
                 .clickSaveButton()
                 .getHeader()
                 .clickLogo()
-                .clickConfigureDropDown(FREESTYLE_NAME)
+                .clickConfigureDropDown(FREESTYLE_NAME, new FreestyleProjectConfigPage(new FreestyleProjectPage(getDriver())))
                 .addDescription(descriptionText)
-                .clickPreviewButton()
-                .getPreviewDescription();
+                .clickPreview()
+                .getPreviewText();
 
         Assert.assertEquals(previewText, descriptionText);
 
@@ -393,8 +393,7 @@ public class FreestyleProjectTest extends BaseTest {
                 .clickSaveButton()
                 .getHeader()
                 .clickLogo()
-                .openJobDropDownMenu(NEW_FREESTYLE_NAME)
-                .selectFromJobDropdownMenuTheGitHub();
+                .selectFromJobDropdownMenuTheGitHub(NEW_FREESTYLE_NAME);
 
         Assert.assertEquals(actualNameRepo, expectedNameRepo);
     }

@@ -299,7 +299,7 @@ public class UsersTest extends BaseTest {
                 .enterPassword(PASSWORD)
                 .enterSignIn(new MainPage(getDriver()));
         TestUtils.createJob(this, nameProject, TestUtils.JobType.FreestyleProject, true);
-        String actualResult = new MainPage(getDriver()).getProjectName();
+        String actualResult = new MainPage(getDriver()).getJobName();
 
         Assert.assertEquals(actualResult, nameProject);
     }
