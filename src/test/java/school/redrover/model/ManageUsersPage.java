@@ -88,7 +88,7 @@ public class ManageUsersPage extends BaseMainHeaderPage<ManageUsersPage> {
     public DeletePage<ManageUsersPage> clickDeleteUser() {
         deleteButton.click();
 
-        return new DeletePage<>(getDriver(), this);
+        return new DeletePage<>(this);
     }
 
     public boolean getUserDeleted(String username) {
