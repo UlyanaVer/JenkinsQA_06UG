@@ -50,14 +50,6 @@ public class ViewConfigPage extends BaseConfigPage<ViewConfigPage, ViewPage> {
         return this;
     }
 
-    public ViewConfigPage enterDescription(String text) {
-        new Actions(getDriver())
-                .click(getDriver().findElement(By.xpath("//*[@name='description']")))
-                .sendKeys(text)
-                .perform();
-        return this;
-    }
-
     public ViewConfigPage clickPreview() {
         getDriver().findElement(
                 By.xpath("//*[@previewendpoint='/markupFormatter/previewDescription']")).click();
