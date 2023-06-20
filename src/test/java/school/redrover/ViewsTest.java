@@ -46,8 +46,9 @@ public class ViewsTest extends BaseTest {
                 .selectListView()
                 .clickCreateButton()
                 .clickViewConfigOkButton()
-                .clickDashboard()
-                .clickViewJob(name)
+                .getBreadcrumb()
+                .clickDashboardButton()
+                .clickOnView(name)
                 .clickEditView(name);
     }
 
@@ -295,7 +296,7 @@ public class ViewsTest extends BaseTest {
     public void testHelpForFeatureDescription() {
         this.createNewFreestyleProjectAndNewView("TestFreestyleName");
 
-        String helpFeature = new ViewPage(getDriver())
+        String helpFeature = new ViewConfigPage(new ViewPage(getDriver()))
                 .clickHelpFeatureDescription()
                 .getTextHelpFeatureDescription();
 
@@ -316,13 +317,13 @@ public class ViewsTest extends BaseTest {
         this.createNewFreestyleProjectAndNewView(projectName);
 
         String previewText =
-                new ViewPage(getDriver())
+                new ViewConfigPage(new ViewPage(getDriver()))
                         .enterDescription(randomText)
                         .clickPreview()
                         .getPreviewText();
 
         String textDescription =
-                new ViewPage(getDriver())
+                new ViewConfigPage(new ViewPage(getDriver()))
                         .clickViewConfigOkButton()
                         .getDescriptionText();
 
