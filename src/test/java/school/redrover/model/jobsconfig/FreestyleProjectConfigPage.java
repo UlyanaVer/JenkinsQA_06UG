@@ -1,5 +1,6 @@
 package school.redrover.model.jobsconfig;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -15,6 +16,18 @@ public class FreestyleProjectConfigPage extends BaseConfigProjectsPage<Freestyle
 
     @FindBy(xpath = "//div[@ref='cb8']/following-sibling::div[2]")
     private WebElement trueExecuteConcurrentBuilds;
+
+    @FindBy(xpath = "//label[text()='Quiet period']")
+    private WebElement quietPeriod;
+
+    @FindBy(xpath = "//label[text()='Execute concurrent builds if necessary']")
+    private WebElement executeConcurrentBuildsIfNecessary;
+
+    @FindBy(xpath = "//input[@name='quiet_period']")
+    private WebElement inputQuietPeriod;
+
+    @FindBy(xpath = "//div[5]/div[1]/button")
+    private WebElement advancedDropdownMenu;
 
     @FindBy(tagName = "footer")
     private WebElement footer;
@@ -63,5 +76,25 @@ public class FreestyleProjectConfigPage extends BaseConfigProjectsPage<Freestyle
         JavascriptExecutor js = (JavascriptExecutor) getDriver();
         js.executeScript("arguments[0].scrollIntoView();", throttleBuildsCheckbox);
         return trueExecuteConcurrentBuilds;
+    }
+
+    public FreestyleProjectConfigPage clickAdvancedDropdownMenu() {
+        advancedDropdownMenu.click();
+        return this;
+    }
+
+    public FreestyleProjectConfigPage clickQuietPeriod() {
+        quietPeriod.click();
+        return this;
+    }
+
+    public FreestyleProjectConfigPage inputQuietPeriod(String number) {
+        inputQuietPeriod.clear();
+        inputQuietPeriod.sendKeys(number);
+        return this;
+    }
+
+    public String getQuietPeriod() {
+        return inputQuietPeriod.getAttribute("value");
     }
 }
