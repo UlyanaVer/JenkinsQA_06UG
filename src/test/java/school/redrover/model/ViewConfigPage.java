@@ -50,11 +50,6 @@ public class ViewConfigPage extends BaseConfigPage<ViewConfigPage, ViewPage> {
         return this;
     }
 
-    public ViewPage clickViewConfigOkButton() {
-        getDriver().findElement(By.xpath("//*[@formnovalidate='formNoValidate']")).click();
-        return new ViewPage(getDriver());
-    }
-
     public ViewConfigPage enterDescription(String text) {
         new Actions(getDriver())
                 .click(getDriver().findElement(By.xpath("//*[@name='description']")))

@@ -45,7 +45,7 @@ public class ViewsTest extends BaseTest {
                 .setNewViewName(name)
                 .selectListView()
                 .clickCreateButton()
-                .clickViewConfigOkButton()
+                .clickSaveButton()
                 .getBreadcrumb()
                 .clickDashboardButton()
                 .clickOnView(name)
@@ -318,13 +318,13 @@ public class ViewsTest extends BaseTest {
 
         String previewText =
                 new ViewConfigPage(new ViewPage(getDriver()))
-                        .enterDescription(randomText)
+                        .addDescription(randomText)
                         .clickPreview()
                         .getPreviewText();
 
         String textDescription =
                 new ViewConfigPage(new ViewPage(getDriver()))
-                        .clickViewConfigOkButton()
+                        .clickSaveButton()
                         .getDescriptionText();
 
         Assert.assertEquals(previewText, randomText);
