@@ -7,6 +7,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import school.redrover.model.base.BaseMainHeaderPage;
 
+import java.util.List;
+
 public class BuildHistoryPage extends BaseMainHeaderPage<BuildHistoryPage> {
 
     @FindBy(xpath = "//table[@id='projectStatus']/tbody/tr/td[4]")
@@ -14,6 +16,21 @@ public class BuildHistoryPage extends BaseMainHeaderPage<BuildHistoryPage> {
 
     @FindBy(xpath = "//a[@class='jenkins-table__link jenkins-table__badge model-link inside']")
     private WebElement nameOfBuildLink;
+
+    @FindBy(xpath = "//div[@class='simileAjax-bubble-contentContainer simileAjax-bubble-contentContainer-pngTranslucent']")
+    private WebElement bubbleContainer;
+
+    @FindBy(xpath = "//div[@class='timeline-event-bubble-title']/a")
+    private WebElement bubbleTitle;
+
+    @FindBy(xpath = "//h1")
+    private WebElement pageHeader;
+
+    @FindBy(xpath = "//table[@id='projectStatus']/tbody/tr")
+    private List<WebElement> buildHistoryTable;
+
+    @FindBy(css = ".task-link-wrapper>a[href$='newJob']")
+    private WebElement newItem;
 
     public BuildHistoryPage(WebDriver driver) {
         super(driver);
@@ -45,16 +62,15 @@ public class BuildHistoryPage extends BaseMainHeaderPage<BuildHistoryPage> {
     }
 
     public String getBubbleTitleOnTimeline() {
-        getWait5().until(ExpectedConditions.presenceOfElementLocated(
-                By.xpath("//div[@class='simileAjax-bubble-contentContainer simileAjax-bubble-contentContainer-pngTranslucent']")));
+        getWait5().until(ExpectedConditions.visibilityOf(bubbleContainer));
 
-        return getDriver().findElement(By.xpath("//div[@class='timeline-event-bubble-title']/a")).getText();
+        return bubbleTitle.getText();
     }
 
     public int getNumberOfLinesInBuildHistoryTable() {
-        getWait5().until(ExpectedConditions.presenceOfElementLocated(By.xpath("//h1")));
+        getWait5().until(ExpectedConditions.visibilityOf(pageHeader));
 
-        return getDriver().findElements(By.xpath("//table[@id='projectStatus']/tbody/tr")).size();
+        return buildHistoryTable.size();
     }
 
     public BuildPage clickNameOfBuildLink() {
@@ -64,7 +80,7 @@ public class BuildHistoryPage extends BaseMainHeaderPage<BuildHistoryPage> {
     }
 
     public NewJobPage clickNewItem() {
-        getDriver().findElement(By.cssSelector(".task-link-wrapper>a[href$='newJob']")).click();
+        newItem.click();
 
         return new NewJobPage(getDriver());
     }
