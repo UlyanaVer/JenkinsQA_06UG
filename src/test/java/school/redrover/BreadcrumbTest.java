@@ -30,7 +30,6 @@ public class BreadcrumbTest extends BaseTest {
                 {"Global Tool Configuration", new GlobalToolConfigurationPage(getDriver())},
                 {"Manage Plugins", new PluginsPage(getDriver())},
                 {"Manage Nodes and Clouds", new ManageNodesPage(getDriver())},
-                {"Install as Windows Service", new InstallAsWindowsServicePage(getDriver())},
                 {"Configure Global Security", new ConfigureGlobalSecurityPage(getDriver())},
                 {"Manage Credentials", new CredentialsPage(getDriver())},
                 {"Configure Credential Providers", new ConfigureCredentialProvidersPage(getDriver())},
