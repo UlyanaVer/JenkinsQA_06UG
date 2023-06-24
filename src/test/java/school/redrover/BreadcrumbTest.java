@@ -95,6 +95,7 @@ public class BreadcrumbTest extends BaseTest {
         Assert.assertEquals(nameProjectOnMainPage, nameProject);
     }
 
+
     @Test
     public void testMoveFromPeoplePageToPluginsPageByDropDownMenu() {
         String actualTitle = new MainPage(getDriver())
