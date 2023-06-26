@@ -54,15 +54,29 @@ public class BreadcrumbTest extends BaseTest {
 
         String pageName = getDriver().findElement(By.xpath("//h1")).getText();
 
-        if (subsectionName.equals("System Log")) {
-            Assert.assertEquals(pageName, "Log Recorders");
-        } else if (subsectionName.equals("Load Statistics")) {
-            Assert.assertTrue(pageName.toLowerCase().contains(subsectionName.toLowerCase()));
-        } else if (subsectionName.equals("About Jenkins")) {
-            Assert.assertTrue(pageName.contains("Jenkins\n" + "Version"));
-        } else {
-            Assert.assertTrue(subsectionName.toLowerCase().contains(pageName.toLowerCase()));
+        switch (subsectionName) {
+            case "System Log" -> Assert.assertEquals(pageName, "Log Recorders");
+            case "Load Statistics" -> Assert.assertTrue(pageName.toLowerCase().contains(subsectionName.toLowerCase()));
+            case "About Jenkins" -> Assert.assertTrue(pageName.contains("Jenkins\n" + "Version"));
+            default -> Assert.assertTrue(subsectionName.toLowerCase().contains(pageName.toLowerCase()));
         }
+    }
+
+    @Test
+    public void testReloadConfigurationFromDiskOfManageJenkinsSubmenu() {
+
+        String expectedLoadingText = "Please wait while Jenkins is getting ready to work ...";
+
+        new MainPage(getDriver())
+                .getBreadcrumb()
+                .getDashboardDropdownMenu()
+                .selectAnOptionFromDashboardManageJenkinsSubmenuList("Reload Configuration from Disk", new MainPage(getDriver()))
+                .getBreadcrumb()
+                .clickOkOnPopUp();
+
+        String loadingText = getDriver().findElement(By.xpath("//h1")).getText();
+
+        Assert.assertEquals(loadingText, expectedLoadingText);
     }
 
     @Test
