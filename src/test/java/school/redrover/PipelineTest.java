@@ -14,8 +14,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class PipelineTest extends BaseTest {
-    // ghjdthrf
-
     private static final String NAME = "PIPELINE_NAME";
     private static final String NEW_NAME = "Pipeline Project";
     private static final String DESCRIPTION = "This is a test description";
